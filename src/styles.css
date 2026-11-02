@@ -127,3 +127,15 @@
 }
 @keyframes scan { 0%,100% { top: 5%; } 50% { top: 92%; } }
 @layer base { h1,h2,h3 { font-family: var(--font-display); } body { font-family: var(--font-sans); } }
+@utility bg-poleng {
+  background-color: var(--card);
+  background-image: conic-gradient(var(--foreground) 25%, transparent 0 50%, var(--foreground) 0 75%, transparent 0);
+  background-size: 14px 14px;
+}
+@utility bg-songket {
+  background-image: radial-gradient(circle at 50% 50%, oklch(0.75 0.13 80 / 35%) 2px, transparent 2.5px), radial-gradient(circle at 0 0, oklch(0.75 0.13 80 / 20%) 3px, transparent 3.5px);
+  background-size: 22px 22px;
+}
+@utility text-gold { color: oklch(0.62 0.13 75); }
+@utility float-slow { animation: floaty 5s ease-in-out infinite; }
+@keyframes floaty { 0%,100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-10px) rotate(4deg); } }
