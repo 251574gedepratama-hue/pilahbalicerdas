@@ -118,7 +118,7 @@ function Index() {
 
         {preview && (
           <section className="grid gap-6 py-6 md:grid-cols-[2fr_3fr]">
-            <div className="relative overflow-hidden rounded-[2rem] bg-card shadow-soft">
+            <div className="relative self-start overflow-hidden rounded-[2rem] bg-card shadow-soft">
               <img src={preview} alt="Foto sampah" className="aspect-square w-full object-cover" />
               {loading && (
                 <>
