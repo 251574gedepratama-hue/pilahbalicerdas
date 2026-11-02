@@ -32,7 +32,7 @@ Jawab dalam Bahasa Indonesia yang ramah dan singkat.
 - ecoPoints: 5-30, lebih tinggi untuk sampah yang dampaknya besar bila dipilah benar.`;
 
 export async function analyzeWasteImage(imageDataUrl: string): Promise<ScanResult> {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) throw new Error("Kunci AI belum dikonfigurasi.");
   const runIdFetch = createLovableAiGatewayRunIdFetch();
   const provider = createOpenAI({
