@@ -94,6 +94,8 @@
   --bin-residu: oklch(0.6 0.01 250);
   --gradient-leaf: linear-gradient(140deg, oklch(0.42 0.1 152), oklch(0.32 0.08 165));
   --shadow-soft: 0 20px 40px -20px oklch(0.3 0.08 150 / 35%);
+  --intro-shade: linear-gradient(90deg, oklch(0.98 0.008 110 / 98%) 0%, oklch(0.98 0.008 110 / 93%) 40%, oklch(0.98 0.008 110 / 10%) 76%);
+  --intro-shade-mobile: linear-gradient(90deg, oklch(0.98 0.008 110 / 95%), oklch(0.98 0.008 110 / 83%));
   --chart-1: oklch(0.6 0.15 145);
   --chart-2: oklch(0.82 0.16 90);
   --chart-3: oklch(0.58 0.2 27);
@@ -139,3 +141,7 @@
 @utility text-gold { color: oklch(0.62 0.13 75); }
 @utility float-slow { animation: floaty 5s ease-in-out infinite; }
 @keyframes floaty { 0%,100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-10px) rotate(4deg); } }
+
+.intro-shade { background-image: var(--intro-shade); }
+@media (max-width: 767px) { .intro-shade { background-image: var(--intro-shade-mobile); } }
+@media (prefers-reduced-motion: reduce) { .scan-line, .float-slow { animation: none; } }
