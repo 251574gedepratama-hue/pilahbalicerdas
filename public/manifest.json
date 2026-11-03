@@ -1,0 +1,37 @@
+{
+  "id": "/",
+  "name": "PilahIn Bali — Foto Sampah, AI Bantu Memilah",
+  "short_name": "PilahIn",
+  "description": "Foto sampahmu, AI langsung memberi tahu jenisnya, warna tong yang tepat, dan ide daur ulangnya.",
+  "lang": "id",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#f9f5e8",
+  "theme_color": "#135c30",
+  "categories": ["education", "lifestyle", "productivity"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Simulasi dampak",
+      "short_name": "Dampak",
+      "description": "Hitung sampah yang berhasil kamu selamatkan dari TPA.",
+      "url": "/#dampak",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Tempat penyaluran",
+      "short_name": "Tempat",
+      "description": "Cari bank sampah dan pengolah daur ulang di Bali.",
+      "url": "/#tempat",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96", "type": "image/png" }]
+    }
+  ]
+}
