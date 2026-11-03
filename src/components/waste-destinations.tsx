@@ -10,7 +10,7 @@ const destinations: { name: string; area: string; categories: Category[]; descri
   { name: "Informasi persampahan Denpasar", area: "Kota Denpasar · direktori resmi", categories: ["organik", "anorganik", "residu"], description: "Temukan informasi TPS3R dan bank sampah dari pemerintah kota. Untuk residu, tanyakan layanan pengangkutan kepada petugas atau pengelola lingkungan setempat.", href: "https://denpasarkota.go.id/page/informasi-pengelolaan-sampah", action: "Buka direktori resmi" },
 ];
 
-export function WasteDestinations({ category }: { category?: Category }) {
+export function WasteDestinations({ category }: { category?: Category | undefined }) {
   const [filter, setFilter] = useState<Category | "semua">(category ?? "semua");
   return (
     <section id="tempat" className="border-t border-border py-12 md:py-16">
