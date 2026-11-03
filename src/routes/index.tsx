@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Camera, Leaf, Loader2, RotateCcw, Sparkles, Recycle, Clock, Coins, Upload } from "lucide-react";
+import { Camera, Leaf, Loader2, RotateCcw, Sparkles, Recycle, Clock, Coins, ArrowDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ImpactSimulator } from "@/components/impact-simulator";
+import { WasteDestinations } from "@/components/waste-destinations";
 import { scanWaste } from "@/lib/scan.functions";
 import heroImg from "@/assets/bali-hero.jpg";
 import type { ScanResult } from "@/lib/ai/scan.server";
@@ -12,6 +15,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Foto sampahmu, AI langsung memberi tahu jenisnya, tempat sampah yang tepat, dan ide daur ulangnya." },
       { property: "og:title", content: "PilahIn Bali — Foto Sampah, AI Bantu Memilah" },
       { property: "og:description", content: "Pemilah sampah pintar berbasis AI untuk warga Indonesia." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -32,7 +37,10 @@ async function compress(file: File): Promise<string> {
   const c = document.createElement("canvas");
   c.width = img.width * scale;
   c.height = img.height * scale;
-  c.getContext("2d")!.drawImage(img, 0, 0, c.width, c.height);
+  const context = c.getContext("2d");
+  if (!context) throw new Error("Foto belum bisa diproses. Coba lagi.");
+  context.drawImage(img, 0, 0, c.width, c.height);
+  img.close();
   return c.toDataURL("image/jpeg", 0.82);
 }
 
@@ -86,54 +94,34 @@ function Index() {
       <main className="mx-auto max-w-5xl px-5 pb-16">
         {!preview && (
           <>
-          <section className="grid items-center gap-10 py-6 md:grid-cols-2 md:py-12">
-            <div>
-              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-accent">Om Swastiastu 🙏 · Jaga Bali tetap asri</p>
-              <h1 className="text-5xl font-extrabold leading-[1.05] text-foreground md:text-6xl">
-                Bingung buang ke mana? <span className="text-primary">Foto saja.</span>
+          <section className="bali-intro relative -mx-5 isolate overflow-hidden px-5 py-12 md:py-16">
+            <img src={heroImg} alt="Pemuda Bali memotret botol plastik di depan candi bentar dan tong pilah" width={1024} height={1024} className="absolute inset-0 -z-20 h-full w-full object-cover object-right" />
+            <div className="intro-shade absolute inset-0 -z-10" />
+            <div className="max-w-lg">
+              <p className="mb-3 text-sm font-bold text-primary">Om Swastiastu 🙏 · Bersama jaga Bali</p>
+              <h1 className="text-5xl font-extrabold leading-tight text-foreground md:text-6xl">
+                PilahIn Bali
               </h1>
-              <p className="mt-5 max-w-md text-lg text-muted-foreground">
-                Dari canang sisa upacara sampai botol plastik di pantai, AI kami kenali sampahmu dalam hitungan detik dan memberi tahu tong yang tepat.
+              <p className="mt-4 text-2xl font-bold leading-snug">Bali bersih dimulai dari satu pilahanmu.</p>
+              <p className="mt-4 max-w-md text-base leading-relaxed text-foreground">
+                Punya sisa canang, bungkus makanan, atau botol plastik? Foto sampahmu, kenali jenisnya, lalu temukan cara penanganan yang tepat.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
-                <button onClick={() => inputRef.current?.click()} className="inline-flex items-center gap-2 rounded-full bg-leaf px-7 py-4 font-bold text-primary-foreground shadow-soft transition hover:scale-[1.03]">
-                  <Camera className="h-5 w-5" /> Foto Sampah Sekarang
-                </button>
-                <span className="text-sm text-muted-foreground">Gratis · tanpa daftar · 5 detik</span>
+                <Button onClick={() => inputRef.current?.click()} size="lg" className="h-auto whitespace-normal px-6 py-4 text-base font-bold shadow-soft">
+                  <Camera className="h-5 w-5" /> Mulai dari sampahmu
+                </Button>
+                <span className="text-sm text-foreground">Tanpa daftar</span>
               </div>
-              <div className="mt-8 grid max-w-md grid-cols-3 gap-3">
-                {[["±4.200", "ton sampah/hari di Bali"], ["60%", "sampah itu organik"], ["4", "warna tong pilah"]].map(([n, l]) => (
-                  <div key={l} className="rounded-2xl bg-card p-3 shadow-soft">
-                    <div className="font-display text-2xl font-extrabold text-primary">{n}</div>
-                    <div className="text-xs text-muted-foreground">{l}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="relative">
-              <div className="absolute -inset-3 rounded-[2.5rem] bg-poleng opacity-90" />
-              <button onClick={() => inputRef.current?.click()} className="relative block overflow-hidden rounded-[2rem] shadow-soft">
-                <img src={heroImg} alt="Pemuda Bali memotret botol plastik di depan candi bentar dan tong pilah" width={1024} height={1024} className="aspect-square w-full object-cover" />
-              </button>
-              <span className="float-slow absolute -left-4 -top-4 text-5xl">🌺</span>
-              <div className="absolute -bottom-5 right-5 flex items-center gap-2 rounded-full bg-card px-4 py-2 text-sm font-bold shadow-soft">
-                <Recycle className="h-4 w-4 text-primary" /> Botol plastik → Tong Kuning
+              <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3">
+                <Button asChild variant="link" className="h-auto p-0"><a href="#dampak">Lihat dampaknya <ArrowDown /></a></Button>
+                <Button asChild variant="link" className="h-auto p-0"><a href="#tempat">Temukan tempat penyaluran <ArrowDown /></a></Button>
               </div>
             </div>
           </section>
 
-          <section className="mt-16 rounded-[2rem] bg-leaf bg-songket p-8 text-primary-foreground md:p-12">
-            <p className="text-sm font-bold uppercase tracking-widest text-gold">Tri Hita Karana</p>
-            <h2 className="mt-2 max-w-xl text-3xl font-extrabold md:text-4xl">Memilah sampah adalah wujud harmoni dengan alam, sesama, dan Sang Pencipta.</h2>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {[["📸", "Foto", "Arahkan kamera ke sampah apa saja."], ["🤖", "AI mengenali", "Jenis, tong, cara buang, dan nilai jualnya."], ["🌿", "Kumpulkan poin", "Naik level dari Pemula sampai Penjaga Pulau."]].map(([e, t, d], i) => (
-                <div key={t} className="rounded-2xl bg-primary-foreground/10 p-5 backdrop-blur">
-                  <div className="text-3xl">{e}</div>
-                  <div className="mt-2 font-display text-lg font-bold">{i + 1}. {t}</div>
-                  <p className="text-sm opacity-85">{d}</p>
-                </div>
-              ))}
-            </div>
+          <section className="-mx-5 border-y-4 border-foreground bg-primary px-5 py-7 text-primary-foreground md:px-10">
+            <p className="text-sm font-bold">Tri Hita Karana</p>
+            <h2 className="mt-2 max-w-3xl text-xl font-bold leading-relaxed md:text-2xl">Merawat alam, menjaga sesama, menghormati Sang Pencipta. Mulai dari sampah yang kita hasilkan hari ini.</h2>
           </section>
           </>
         )}
@@ -162,14 +150,14 @@ function Index() {
               {error && (
                 <div className="py-10 text-center">
                   <p className="font-bold text-destructive">{error}</p>
-                  <button onClick={reset} className="mt-4 rounded-full bg-secondary px-5 py-2 font-bold">Coba lagi</button>
+                  <Button onClick={reset} variant="secondary" className="mt-4">Coba lagi</Button>
                 </div>
               )}
               {result && !result.isWaste && (
                 <div className="py-10 text-center">
                   <p className="text-lg font-bold">Sepertinya ini bukan sampah 🤔</p>
                   <p className="mt-1 text-muted-foreground">Coba foto benda yang ingin kamu buang.</p>
-                  <button onClick={reset} className="mt-4 rounded-full bg-secondary px-5 py-2 font-bold">Foto lagi</button>
+                  <Button onClick={reset} variant="secondary" className="mt-4">Foto lagi</Button>
                 </div>
               )}
               {result && result.isWaste && (
@@ -198,14 +186,17 @@ function Index() {
 
                   <p className="mt-6 rounded-2xl bg-secondary p-4 text-sm text-secondary-foreground">💡 {result.funFact}</p>
 
-                  <button onClick={() => inputRef.current?.click()} className="mt-6 inline-flex items-center gap-2 rounded-full bg-leaf px-6 py-3 font-bold text-primary-foreground">
+                  <Button onClick={() => inputRef.current?.click()} className="mt-6 h-auto px-6 py-3 font-bold">
                     <RotateCcw className="h-4 w-4" /> Pindai sampah lain
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>
           </section>
         )}
+
+        <ImpactSimulator />
+        <WasteDestinations key={result?.category ?? "semua"} category={result?.isWaste ? result.category : undefined} />
 
         {history.length > 0 && (
           <section className="mt-10">
