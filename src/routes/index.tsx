@@ -4,6 +4,7 @@ import { Camera, Image as ImageIcon, Leaf, Loader2, RotateCcw, Sparkles, Recycle
 import { Button } from "@/components/ui/button";
 import { ImpactSimulator } from "@/components/impact-simulator";
 import { WasteDestinations } from "@/components/waste-destinations";
+import { InstallPrompt } from "@/components/install-prompt";
 import { scanWaste } from "@/lib/scan.functions";
 import heroImg from "@/assets/bali-hero.jpg";
 import type { ScanResult } from "@/lib/ai/scan.server";
@@ -81,12 +82,15 @@ function Index() {
 
   return (
     <div className="min-h-screen">
-      <header className="mx-auto flex max-w-5xl items-center justify-between px-5 py-5">
+      <header className="relative mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-5">
         <div className="flex items-center gap-2 font-display text-xl font-extrabold text-primary">
           <Leaf className="h-6 w-6" /> PilahIn <span className="text-gold">Bali</span>
         </div>
-        <div className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-secondary-foreground">
-          <Sparkles className="h-4 w-4 text-accent" /> {totalPoints} Poin · {level(totalPoints)}
+        <div className="flex items-center gap-2">
+          <InstallPrompt />
+          <div className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-secondary-foreground">
+            <Sparkles className="h-4 w-4 text-accent" /> {totalPoints} Poin · {level(totalPoints)}
+          </div>
         </div>
       </header>
 
