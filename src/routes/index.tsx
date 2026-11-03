@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Camera, Leaf, Loader2, RotateCcw, Sparkles, Recycle, Clock, Coins, ArrowDown } from "lucide-react";
+import { Camera, Image as ImageIcon, Leaf, Loader2, RotateCcw, Sparkles, Recycle, Clock, Coins, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImpactSimulator } from "@/components/impact-simulator";
 import { WasteDestinations } from "@/components/waste-destinations";
@@ -107,7 +107,10 @@ function Index() {
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button asChild size="lg" className="h-auto whitespace-normal px-6 py-4 text-base font-bold shadow-soft">
-                  <label htmlFor="foto-sampah"><Camera className="h-5 w-5" /> Mulai dari sampahmu</label>
+                  <label htmlFor="foto-kamera"><Camera className="h-5 w-5" /> Ambil foto sampah</label>
+                </Button>
+                <Button asChild variant="secondary" size="lg" className="h-auto whitespace-normal px-6 py-4 text-base font-bold">
+                  <label htmlFor="foto-galeri"><ImageIcon className="h-5 w-5" /> Pilih dari galeri</label>
                 </Button>
                 <span className="text-sm text-foreground">Tanpa daftar</span>
               </div>
@@ -125,7 +128,9 @@ function Index() {
           </>
         )}
 
-        <input id="foto-sampah" type="file" accept="image/*" className="hidden"
+        <input id="foto-kamera" type="file" accept="image/*" capture="environment" className="hidden"
+          onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ""; }} />
+        <input id="foto-galeri" type="file" accept="image/*" className="hidden"
           onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ""; }} />
 
         {preview && (
@@ -186,7 +191,7 @@ function Index() {
                   <p className="mt-6 rounded-2xl bg-secondary p-4 text-sm text-secondary-foreground">💡 {result.funFact}</p>
 
                   <Button asChild className="mt-6 h-auto px-6 py-3 font-bold">
-                    <label htmlFor="foto-sampah"><RotateCcw className="h-4 w-4" /> Pindai sampah lain</label>
+                    <label htmlFor="foto-kamera"><RotateCcw className="h-4 w-4" /> Pindai sampah lain</label>
                   </Button>
                 </div>
               )}
