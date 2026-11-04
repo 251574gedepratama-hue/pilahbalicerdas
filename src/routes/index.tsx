@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Camera, Image as ImageIcon, Leaf, Loader2, RotateCcw, Sparkles, Recycle, Clock, Coins, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImpactSimulator } from "@/components/impact-simulator";
+import { BaliWasteData } from "@/components/bali-waste-data";
 import { WasteDestinations } from "@/components/waste-destinations";
 import { InstallPrompt } from "@/components/install-prompt";
 import { scanWaste } from "@/lib/scan.functions";
@@ -202,6 +203,7 @@ function Index() {
           </section>
         )}
 
+        <BaliWasteData />
         <ImpactSimulator />
         <WasteDestinations key={result?.category ?? "semua"} category={result?.isWaste ? result.category : undefined} />
 

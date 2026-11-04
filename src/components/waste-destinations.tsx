@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 type Category = "organik" | "anorganik" | "b3" | "residu";
 
 const INFO: Record<Category, { label: string; bin: string; what: string; examples: string[]; tip: string; search: string }> = {
-  organik: { label: "Organik", bin: "Tong hijau", what: "Sampah dari makhluk hidup yang bisa membusuk dan diolah menjadi kompos atau pakan maggot.", examples: ["Sisa canang & bunga upakara", "Sisa makanan dan kulit buah", "Daun, ranting, janur", "Ampas kopi dan teh"], tip: "Pisahkan dari plastik. Bisa dikomposkan sendiri di teba modern atau lubang biopori.", search: "TPS3R kompos" },
-  anorganik: { label: "Anorganik", bin: "Tong kuning", what: "Sampah yang sulit membusuk tetapi masih bisa didaur ulang dan punya nilai jual di bank sampah.", examples: ["Botol & gelas plastik", "Kardus dan kertas", "Kaleng minuman", "Botol kaca"], tip: "Bilas, keringkan, dan pipihkan agar diterima bank sampah dan harganya lebih baik.", search: "bank sampah" },
-  b3: { label: "B3", bin: "Tong merah", what: "Bahan Berbahaya dan Beracun yang bisa mencemari tanah, air, dan membahayakan kesehatan.", examples: ["Baterai bekas", "Lampu neon / LED", "Obat kedaluwarsa", "Elektronik rusak, kaleng pestisida"], tip: "Simpan terpisah dalam wadah tertutup. Jangan dibakar atau dibongkar; minta arahan DLH.", search: "dinas lingkungan hidup" },
-  residu: { label: "Residu", bin: "Tong abu-abu", what: "Sampah yang tidak bisa dikomposkan maupun didaur ulang, sehingga berakhir di TPA.", examples: ["Popok & pembalut bekas", "Bungkus sachet berlapis", "Puntung rokok, permen karet", "Styrofoam kotor"], tip: "Cara terbaik adalah mengurangi dari sumbernya: pilih isi ulang dan wadah sendiri.", search: "TPS sampah" },
+  organik: { label: "Organik", bin: "Tong hijau", what: "Sampah organik adalah sampah dari makhluk hidup yang bisa membusuk dan diolah menjadi kompos atau pakan maggot.", examples: ["Sisa canang & bunga upakara", "Sisa makanan dan kulit buah", "Daun, ranting, janur", "Ampas kopi dan teh"], tip: "Pisahkan dari plastik. Bisa dikomposkan sendiri di teba modern atau lubang biopori.", search: "TPS3R kompos" },
+  anorganik: { label: "Anorganik", bin: "Tong kuning", what: "Sampah anorganik adalah sampah yang sulit membusuk tetapi masih bisa didaur ulang dan punya nilai jual di bank sampah.", examples: ["Botol & gelas plastik", "Kardus dan kertas", "Kaleng minuman", "Botol kaca"], tip: "Bilas, keringkan, dan pipihkan agar diterima bank sampah dan harganya lebih baik.", search: "bank sampah" },
+  b3: { label: "B3", bin: "Tong merah", what: "Sampah B3 adalah sampah Bahan Berbahaya dan Beracun yang bisa mencemari tanah, air, dan membahayakan kesehatan.", examples: ["Baterai bekas", "Lampu neon / LED", "Obat kedaluwarsa", "Elektronik rusak, kaleng pestisida"], tip: "Simpan terpisah dalam wadah tertutup. Jangan dibakar atau dibongkar; minta arahan DLH.", search: "dinas lingkungan hidup" },
+  residu: { label: "Residu", bin: "Tong abu-abu", what: "Sampah residu adalah sampah yang tidak bisa dikomposkan maupun didaur ulang, sehingga berakhir di TPA.", examples: ["Popok & pembalut bekas", "Bungkus sachet berlapis", "Puntung rokok, permen karet", "Styrofoam kotor"], tip: "Cara terbaik adalah mengurangi dari sumbernya: pilih isi ulang dan wadah sendiri.", search: "TPS sampah" },
 };
 
 const REGIONS = ["Denpasar", "Badung", "Gianyar", "Tabanan", "Klungkung", "Bangli", "Karangasem", "Buleleng", "Jembrana"] as const;
@@ -38,7 +38,7 @@ export function WasteDestinations({ category }: { category?: Category | undefine
       <div className="grid gap-6 rounded-lg border border-border bg-card p-5 md:grid-cols-2 md:p-7">
         <div>
           <p className="text-sm font-bold text-primary">{info.bin}</p>
-          <h3 className="mt-1 text-2xl font-extrabold">Apa itu sampah {info.label.toLowerCase()}?</h3>
+          <h3 className="mt-1 text-2xl font-extrabold">Sampah {info.label}</h3>
           <p className="mt-2 leading-relaxed text-muted-foreground">{info.what}</p>
           <p className="mt-4 rounded-md bg-secondary p-3 text-sm text-secondary-foreground">💡 {info.tip}</p>
         </div>
