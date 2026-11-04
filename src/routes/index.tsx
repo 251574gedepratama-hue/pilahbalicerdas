@@ -12,9 +12,9 @@ import type { ScanResult } from "@/lib/ai/scan.server";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PilahIn Bali — Foto Sampah, AI Bantu Memilah" },
+      { title: "Pilah Cerdas Bali — Foto Sampah, AI Bantu Memilah" },
       { name: "description", content: "Foto sampahmu, AI langsung memberi tahu jenisnya, tempat sampah yang tepat, dan ide daur ulangnya." },
-      { property: "og:title", content: "PilahIn Bali — Foto Sampah, AI Bantu Memilah" },
+      { property: "og:title", content: "Pilah Cerdas Bali — Foto Sampah, AI Bantu Memilah" },
       { property: "og:description", content: "Pemilah sampah pintar berbasis AI untuk warga Indonesia." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -103,7 +103,7 @@ function Index() {
             <div className="max-w-lg">
               <p className="mb-3 text-sm font-bold text-primary">Om Swastiastu 🙏 · Bersama jaga Bali</p>
               <h1 className="text-5xl font-extrabold leading-tight text-foreground md:text-6xl">
-                PilahIn Bali
+                Pilah Cerdas Bali
               </h1>
               <p className="mt-4 text-2xl font-bold leading-snug">Bali bersih dimulai dari satu pilahanmu.</p>
               <p className="mt-4 max-w-md text-base leading-relaxed text-foreground">
