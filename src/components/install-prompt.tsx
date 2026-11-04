@@ -60,7 +60,7 @@ export function InstallPrompt() {
         variant="outline"
         size="sm"
         onClick={install}
-        aria-label="Pasang PilahIn Bali ke layar utama HP"
+        aria-label="Pasang Pilah Cerdas Bali ke layar utama HP"
         className="h-9 gap-2 rounded-full border-primary/30 bg-card px-3 text-xs font-bold text-primary"
       >
         <Download className="h-4 w-4" />

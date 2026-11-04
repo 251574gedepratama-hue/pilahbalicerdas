@@ -7,14 +7,15 @@ import { WasteDestinations } from "@/components/waste-destinations";
 import { InstallPrompt } from "@/components/install-prompt";
 import { scanWaste } from "@/lib/scan.functions";
 import heroImg from "@/assets/bali-hero.jpg";
+import logo from "@/assets/pilah-cerdas-logo.png.asset.json";
 import type { ScanResult } from "@/lib/ai/scan.server";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PilahIn Bali — Foto Sampah, AI Bantu Memilah" },
+      { title: "Pilah Cerdas Bali — Foto Sampah, AI Bantu Memilah" },
       { name: "description", content: "Foto sampahmu, AI langsung memberi tahu jenisnya, tempat sampah yang tepat, dan ide daur ulangnya." },
-      { property: "og:title", content: "PilahIn Bali — Foto Sampah, AI Bantu Memilah" },
+      { property: "og:title", content: "Pilah Cerdas Bali — Foto Sampah, AI Bantu Memilah" },
       { property: "og:description", content: "Pemilah sampah pintar berbasis AI untuk warga Indonesia." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -83,9 +84,7 @@ function Index() {
   return (
     <div className="min-h-screen">
       <header className="relative mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-5">
-        <div className="flex items-center gap-2 font-display text-xl font-extrabold text-primary">
-          <Leaf className="h-6 w-6" /> PilahIn <span className="text-gold">Bali</span>
-        </div>
+        <img src={logo.url} alt="Pilah Cerdas Bali" width={150} height={100} className="h-14 w-auto rounded-md md:h-16" />
         <div className="flex items-center gap-2">
           <InstallPrompt />
           <div className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-secondary-foreground">
@@ -103,7 +102,7 @@ function Index() {
             <div className="max-w-lg">
               <p className="mb-3 text-sm font-bold text-primary">Om Swastiastu 🙏 · Bersama jaga Bali</p>
               <h1 className="text-5xl font-extrabold leading-tight text-foreground md:text-6xl">
-                PilahIn Bali
+                Pilah Cerdas Bali
               </h1>
               <p className="mt-4 text-2xl font-bold leading-snug">Bali bersih dimulai dari satu pilahanmu.</p>
               <p className="mt-4 max-w-md text-base leading-relaxed text-foreground">
