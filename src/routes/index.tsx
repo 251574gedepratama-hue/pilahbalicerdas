@@ -176,6 +176,19 @@ function Index() {
                   <h2 className="mt-3 text-3xl font-extrabold">{result.itemName}</h2>
                   <p className="text-muted-foreground">{result.material}</p>
 
+                  <div className="mt-5 rounded-2xl bg-muted p-4">
+                    <div className="flex justify-between text-sm"><span className="font-bold">Tingkat keyakinan AI</span><span className="font-bold text-primary">{result.confidence}%</span></div>
+                    <div className="mt-2 h-2 overflow-hidden rounded-full bg-background"><div className="grow-bar h-full rounded-full bg-primary" style={{ width: `${result.confidence}%` }} /></div>
+                    <p className="mt-3 text-sm font-bold">Jumlah objek terdeteksi: {result.objectCount} buah</p>
+                    {result.objects.length > 0 && (
+                      <ul className="mt-2 flex flex-wrap gap-2">
+                        {result.objects.map((o, i) => (
+                          <li key={i} className="flex items-center gap-2 rounded-full bg-card px-3 py-1 text-xs"><span className={`h-2.5 w-2.5 rounded-full ${CAT[o.category].cls}`} />{o.count}× {o.name}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
                   <div className="mt-5 grid grid-cols-3 gap-3 text-sm">
                     <Stat icon={<Clock className="h-4 w-4" />} label="Terurai" value={result.decomposeTime} />
                     <Stat icon={<Coins className="h-4 w-4" />} label="Bank sampah" value={result.bankSampahValue} />

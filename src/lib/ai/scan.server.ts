@@ -15,6 +15,9 @@ export const scanSchema = z.object({
   bankSampahValue: z.string(),
   funFact: z.string(),
   ecoPoints: z.number(),
+  confidence: z.number(),
+  objectCount: z.number(),
+  objects: z.array(z.object({ name: z.string(), count: z.number(), category: z.enum(["organik", "anorganik", "b3", "residu"]) })),
 });
 
 export type ScanResult = z.infer<typeof scanSchema>;
@@ -29,7 +32,11 @@ Jawab dalam Bahasa Indonesia yang ramah dan singkat.
 - decomposeTime: perkiraan waktu terurai di alam.
 - bankSampahValue: perkiraan harga jual di bank sampah per kg dalam Rupiah, atau "Tidak laku dijual".
 - funFact: satu fakta menarik tentang dampak sampah ini.
-- ecoPoints: 5-30, lebih tinggi untuk sampah yang dampaknya besar bila dipilah benar.`;
+- ecoPoints: 5-30, lebih tinggi untuk sampah yang dampaknya besar bila dipilah benar.
+- confidence: tingkat keyakinanmu 0-100 atas klasifikasi ini (jujur; turunkan jika foto buram/ambigu).
+- objects: daftar setiap jenis benda sampah yang terlihat di foto beserta jumlahnya dan kategorinya (nama dalam Bahasa Indonesia).
+- objectCount: total seluruh benda sampah yang terlihat.
+- itemName/category: benda yang paling dominan.`;
 
 export async function analyzeWasteImage(imageDataUrl: string): Promise<ScanResult> {
   const apiKey = process.env["LOVABLE_API_KEY"];
@@ -66,7 +73,12 @@ export async function analyzeWasteImage(imageDataUrl: string): Promise<ScanResul
   });
   try {
     const out = await result.output;
-    return { ...out, ecoPoints: Math.max(5, Math.min(30, Math.round(out.ecoPoints))) };
+    return {
+      ...out,
+      ecoPoints: Math.max(5, Math.min(30, Math.round(out.ecoPoints))),
+      confidence: Math.max(0, Math.min(100, Math.round(out.confidence))),
+      objectCount: Math.max(0, Math.round(out.objectCount)),
+    };
   } catch (e) {
     if (NoObjectGeneratedError.isInstance(e)) throw new Error("AI tidak bisa membaca foto ini. Coba foto lain.");
     const status = (e as { statusCode?: number }).statusCode;

@@ -35,12 +35,15 @@ export function WasteDestinations({ category }: { category?: Category | undefine
         {(Object.keys(INFO) as Category[]).map((c) => <Button key={c} role="tab" aria-selected={active === c} variant={active === c ? "default" : "outline"} onClick={() => setActive(c)}>{INFO[c].label}</Button>)}
       </div>
 
-      <div className="grid gap-6 rounded-lg border border-border bg-card p-5 md:grid-cols-2 md:p-7">
+      <div key={active} className="tab-in grid gap-6 rounded-lg border border-border bg-card p-5 md:grid-cols-2 md:p-7">
         <div>
           <p className="text-sm font-bold text-primary">{info.bin}</p>
           <h3 className="mt-1 text-2xl font-extrabold">Sampah {info.label}</h3>
           <p className="mt-2 leading-relaxed text-muted-foreground">{info.what}</p>
           <p className="mt-4 rounded-md bg-secondary p-3 text-sm text-secondary-foreground">💡 {info.tip}</p>
+          <Button asChild variant="outline" className="mt-4">
+            <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(`cara mengolah sampah ${info.label.toLowerCase()} di rumah`)}`} target="_blank" rel="noreferrer">▶ Tonton video cara mengolah sampah {info.label.toLowerCase()}</a>
+          </Button>
         </div>
         <div>
           <h4 className="font-bold">Contoh</h4>
