@@ -58,6 +58,15 @@ function Index() {
     try { setHistory(JSON.parse(localStorage.getItem("pilahin-history") || "[]")); } catch { /* empty */ }
   }, []);
 
+  useEffect(() => {
+    const els = document.querySelectorAll("main section");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+    return () => io.disconnect();
+  }, [preview, result, history.length]);
+
   const totalPoints = history.reduce((s, h) => s + h.points, 0);
 
   async function onFile(file?: File) {
@@ -83,7 +92,7 @@ function Index() {
   function reset() { setPreview(null); setResult(null); setError(null); }
 
   return (
-    <div className="min-h-screen">
+    <div id="atas" className="min-h-screen">
       <header className="relative mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-5">
         <img src={logo.url} alt="Pilah Cerdas Bali" width={150} height={100} className="h-14 w-auto rounded-md md:h-16" />
         <div className="flex items-center gap-2">
@@ -93,6 +102,13 @@ function Index() {
           </div>
         </div>
       </header>
+      <nav aria-label="Menu bagian" className="sticky top-0 z-30 border-y border-border bg-background/90 backdrop-blur">
+        <div className="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-5 py-2 text-sm font-bold">
+          {[["#atas", "Beranda"], ["#data-bali", "Data Bali"], ["#dampak", "Simulasi"], ["#tempat", "Panduan & Lokasi"], ["#riwayat", "Riwayat"]].map(([href, label]) => (
+            <a key={href} href={href} className="nav-pill shrink-0 rounded-full px-4 py-2 text-foreground hover:bg-secondary">{label}</a>
+          ))}
+        </div>
+      </nav>
 
       <main className="mx-auto max-w-5xl px-5 pb-16">
         {!preview && (
@@ -221,7 +237,7 @@ function Index() {
         <WasteDestinations key={result?.category ?? "semua"} category={result?.isWaste ? result.category : undefined} />
 
         {history.length > 0 && (
-          <section className="mt-10">
+          <section id="riwayat" className="mt-10">
             <h2 className="text-2xl font-extrabold">Riwayat pilahanmu</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
               {history.map((h) => (
