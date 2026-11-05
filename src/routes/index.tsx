@@ -99,6 +99,7 @@ function Index() {
     try {
       const data = await compress(file);
       setPreview(data);
+      window.scrollTo({ top: 0, behavior: "smooth" });
       const r = await scanWaste({ data: { image: data } });
       setResult(r);
       if (r.isWaste) {

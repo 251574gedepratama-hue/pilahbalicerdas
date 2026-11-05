@@ -159,7 +159,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
 .nav-pill { transition: background-color .2s, transform .2s; }
 .nav-pill:active { transform: scale(.95); }
 @media (prefers-reduced-motion: reduce) {
-  .scan-line, .float-slow, .tab-in, .grow-bar { animation: none; }
+  .scan-line, .float-slow, .tab-in, .grow-bar, .mark-pop { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
 }
