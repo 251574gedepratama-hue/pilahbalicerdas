@@ -32,6 +32,13 @@ const CAT = {
   residu: { label: "Residu", cls: "bg-bin-residu text-primary-foreground" },
 } as const;
 
+const MARK = {
+  organik: "border-bin-organik bg-bin-organik/15",
+  anorganik: "border-bin-anorganik bg-bin-anorganik/15",
+  b3: "border-bin-b3 bg-bin-b3/15",
+  residu: "border-bin-residu bg-bin-residu/15",
+} as const;
+
 type HistoryItem = { name: string; category: ScanResult["category"]; points: number; at: number };
 
 async function compress(file: File): Promise<string> {
@@ -156,7 +163,13 @@ function Index() {
         {preview && (
           <section className="grid gap-6 py-6 md:grid-cols-[2fr_3fr]">
             <div className="relative self-start overflow-hidden rounded-[2rem] bg-card shadow-soft">
-              <img src={preview} alt="Foto sampah" className="aspect-square w-full object-cover" />
+              <img src={preview} alt="Foto sampah" className="block h-auto w-full" />
+              {result?.isWaste && result.objects.map((o, i) => (
+                <div key={i} className="mark-pop pointer-events-none absolute" style={{ left: `${o.x}%`, top: `${o.y}%`, width: `${o.r * 2}%`, animationDelay: `${i * 120}ms` }}>
+                  <div className={`mark-ring aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full border-4 ${MARK[o.category]}`} />
+                  <span className={`absolute left-0 top-0 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-bold shadow-soft ${CAT[o.category].cls}`} style={{ transform: `translate(-50%, calc(-50% - ${0}px))` }}>{o.count}× {o.name}</span>
+                </div>
+              ))}
               {loading && (
                 <>
                   <div className="absolute inset-0 bg-primary/20" />
