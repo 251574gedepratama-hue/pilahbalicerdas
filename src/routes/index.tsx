@@ -32,6 +32,8 @@ const CAT = {
   residu: { label: "Residu", cls: "bg-bin-residu text-primary-foreground" },
 } as const;
 
+const NAV = [["#atas", "Beranda"], ["#data-bali", "Data Bali"], ["#dampak", "Simulasi"], ["#tempat", "Panduan & Lokasi"], ["#riwayat", "Riwayat"]] as const;
+
 const MARK = {
   organik: "border-bin-organik bg-bin-organik/15",
   anorganik: "border-bin-anorganik bg-bin-anorganik/15",
@@ -74,6 +76,21 @@ function Index() {
     return () => io.disconnect();
   }, [preview, result, history.length]);
 
+  const [activeNav, setActiveNav] = useState("#atas");
+  useEffect(() => {
+    const onScroll = () => {
+      let cur = "#atas";
+      for (const [href] of NAV) {
+        const el = href === "#atas" ? null : document.querySelector(href);
+        if (el && el.getBoundingClientRect().top < 140) cur = href;
+      }
+      setActiveNav(cur);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [history.length]);
+
   const totalPoints = history.reduce((s, h) => s + h.points, 0);
 
   async function onFile(file?: File) {
@@ -110,9 +127,10 @@ function Index() {
         </div>
       </header>
       <nav aria-label="Menu bagian" className="sticky top-0 z-30 border-y border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-5 py-2 text-sm font-bold">
-          {[["#atas", "Beranda"], ["#data-bali", "Data Bali"], ["#dampak", "Simulasi"], ["#tempat", "Panduan & Lokasi"], ["#riwayat", "Riwayat"]].map(([href, label]) => (
-            <a key={href} href={href} className="nav-pill shrink-0 rounded-full px-4 py-2 text-foreground hover:bg-secondary">{label}</a>
+        <div className="no-scrollbar mx-auto flex max-w-5xl gap-1 overflow-x-auto px-3 py-2 text-sm font-bold">
+          {NAV.filter(([href]) => href !== "#riwayat" || history.length > 0).map(([href, label]) => (
+            <a key={href} href={href} aria-current={activeNav === href ? "true" : undefined}
+              className={`nav-pill shrink-0 rounded-full px-3 py-1.5 ${activeNav === href ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-secondary"}`}>{label}</a>
           ))}
         </div>
       </nav>
@@ -167,7 +185,7 @@ function Index() {
               {result?.isWaste && result.objects.map((o, i) => (
                 <div key={i} className="mark-pop pointer-events-none absolute" style={{ left: `${o.x}%`, top: `${o.y}%`, width: `${o.r * 2}%`, animationDelay: `${i * 120}ms` }}>
                   <div className={`mark-ring aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full border-4 ${MARK[o.category]}`} />
-                  <span className={`absolute left-0 top-0 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-bold shadow-soft ${CAT[o.category].cls}`} style={{ transform: `translate(-50%, calc(-50% - ${0}px))` }}>{o.count}× {o.name}</span>
+                  <span className={`absolute left-0 top-0 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-bold shadow-soft ${CAT[o.category].cls}`} style={{ transform: "translate(-50%, -50%)" }}>{o.count}× {o.name}</span>
                 </div>
               ))}
               {loading && (
