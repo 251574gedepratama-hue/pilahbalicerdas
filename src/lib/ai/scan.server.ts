@@ -17,7 +17,7 @@ export const scanSchema = z.object({
   ecoPoints: z.number(),
   confidence: z.number(),
   objectCount: z.number(),
-  objects: z.array(z.object({ name: z.string(), count: z.number(), category: z.enum(["organik", "anorganik", "b3", "residu"]) })),
+  objects: z.array(z.object({ name: z.string(), count: z.number(), category: z.enum(["organik", "anorganik", "b3", "residu"]), x: z.number(), y: z.number(), r: z.number() })),
 });
 
 export type ScanResult = z.infer<typeof scanSchema>;
@@ -35,6 +35,7 @@ Jawab dalam Bahasa Indonesia yang ramah dan singkat.
 - ecoPoints: 5-30, lebih tinggi untuk sampah yang dampaknya besar bila dipilah benar.
 - confidence: tingkat keyakinanmu 0-100 atas klasifikasi ini (jujur; turunkan jika foto buram/ambigu).
 - objects: daftar setiap jenis benda sampah yang terlihat di foto beserta jumlahnya dan kategorinya (nama dalam Bahasa Indonesia).
+  Untuk setiap objek, beri x dan y = titik tengah lokasinya di foto dalam persen (0-100, x dari kiri, y dari atas) dan r = jari-jari lingkaran yang melingkupinya dalam persen lebar foto (5-40). Pisahkan entri per lokasi bila benda sejenis tersebar.
 - objectCount: total seluruh benda sampah yang terlihat.
 - itemName/category: benda yang paling dominan.`;
 
