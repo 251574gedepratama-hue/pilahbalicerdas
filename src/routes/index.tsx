@@ -32,7 +32,7 @@ const CAT = {
   residu: { label: "Residu", cls: "bg-bin-residu text-primary-foreground" },
 } as const;
 
-const NAV = [["#atas", "Beranda"], ["#data-bali", "Data Bali"], ["#dampak", "Simulasi"], ["#tempat", "Panduan & Lokasi"], ["#riwayat", "Riwayat"]] as const;
+const NAV = [["#atas", "Beranda"], ["#data-bali", "Data Bali"], ["#dampak", "Simulasi"], ["#tempat", "Lokasi"], ["#riwayat", "Riwayat"]] as const;
 
 const MARK = {
   organik: "border-bin-organik bg-bin-organik/15",
