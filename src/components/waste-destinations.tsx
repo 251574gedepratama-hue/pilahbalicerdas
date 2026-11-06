@@ -31,17 +31,17 @@ export function WasteDestinations({ category }: { category?: Category | undefine
       <p className="mb-3 flex items-center gap-2 text-sm font-bold text-primary"><MapPin className="size-4" /> KENALI LALU SALURKAN</p>
       <h2 className="text-3xl font-extrabold">Pahami jenisnya, lalu temukan tempatnya</h2>
       <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">Pilih jenis sampah untuk melihat penjelasan, contoh, dan tempat penyaluran di seluruh Bali.</p>
-      <div className="my-6 flex flex-wrap gap-2" role="tablist" aria-label="Jenis sampah">
+      <div className="my-6 grid grid-cols-2 gap-2 sm:grid-cols-4" role="tablist" aria-label="Jenis sampah">
         {(Object.keys(INFO) as Category[]).map((c) => <Button key={c} role="tab" aria-selected={active === c} variant={active === c ? "default" : "outline"} onClick={() => setActive(c)}>{INFO[c].label}</Button>)}
       </div>
 
-      <div key={active} className="tab-in grid gap-6 rounded-lg border border-border bg-card p-5 md:grid-cols-2 md:p-7">
+      <div key={active} className="tab-in grid min-w-0 gap-6 rounded-lg border border-border bg-card p-5 md:grid-cols-2 md:p-7">
         <div>
           <p className="text-sm font-bold text-primary">{info.bin}</p>
           <h3 className="mt-1 text-2xl font-extrabold">Sampah {info.label}</h3>
           <p className="mt-2 leading-relaxed text-muted-foreground">{info.what}</p>
           <p className="mt-4 rounded-md bg-secondary p-3 text-sm text-secondary-foreground">💡 {info.tip}</p>
-          <Button asChild variant="outline" className="mt-4">
+          <Button asChild variant="outline" className="mt-4 h-auto max-w-full whitespace-normal py-2 text-left">
             <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(`cara mengolah sampah ${info.label.toLowerCase()} di rumah`)}`} target="_blank" rel="noreferrer">▶ Tonton video cara mengolah sampah {info.label.toLowerCase()}</a>
           </Button>
         </div>
@@ -54,13 +54,13 @@ export function WasteDestinations({ category }: { category?: Category | undefine
 
       <h3 className="mt-8 text-xl font-bold">Lokasi terdekat</h3>
       <div className="mt-3 flex flex-wrap gap-3">
-        <Button asChild><a href={mapsUrl(`${info.search} terdekat`)} target="_blank" rel="noopener noreferrer"><Navigation /> Cari {info.label.toLowerCase()} terdekat dariku</a></Button>
+        <Button asChild className="h-auto max-w-full whitespace-normal py-2 text-left"><a href={mapsUrl(`${info.search} terdekat`)} target="_blank" rel="noopener noreferrer"><Navigation /> Cari {info.label.toLowerCase()} terdekat dariku</a></Button>
       </div>
       <h3 className="mt-8 text-xl font-bold">Seluruh Bali</h3>
       <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Kabupaten/kota">
         {REGIONS.map((r) => <Button key={r} size="sm" variant={region === r ? "secondary" : "ghost"} aria-pressed={region === r} onClick={() => setRegion(r)}>{r}</Button>)}
       </div>
-      <Button asChild variant="link" className="mt-2 h-auto p-0"><a href={mapsUrl(`${info.search} ${region} Bali`)} target="_blank" rel="noopener noreferrer">Lihat tempat {info.label.toLowerCase()} di {region} pada peta <ArrowUpRight /></a></Button>
+      <Button asChild variant="link" className="mt-2 h-auto max-w-full whitespace-normal p-0 text-left"><a href={mapsUrl(`${info.search} ${region} Bali`)} target="_blank" rel="noopener noreferrer">Lihat tempat {info.label.toLowerCase()} di {region} pada peta <ArrowUpRight /></a></Button>
 
       <h3 className="mt-8 text-xl font-bold">Rekomendasi terverifikasi</h3>
       <div className="mt-3 grid gap-4 sm:grid-cols-2">

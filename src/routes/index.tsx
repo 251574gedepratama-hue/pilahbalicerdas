@@ -117,12 +117,12 @@ function Index() {
   function reset() { setPreview(null); setResult(null); setError(null); }
 
   return (
-    <div id="atas" className="min-h-screen">
+    <div id="atas" className="min-h-screen overflow-x-clip">
       <header className="relative mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-5">
-        <img src={logo.url} alt="Pilah Cerdas Bali" width={150} height={100} className="h-14 w-auto rounded-md md:h-16" />
+        <img src={logo.url} alt="Pilah Cerdas Bali" width={150} height={100} className="h-12 w-auto shrink-0 rounded-md sm:h-14 md:h-16" />
         <div className="flex items-center gap-2">
           <InstallPrompt />
-          <div className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-secondary-foreground">
+          <div className="flex items-center gap-2 rounded-full bg-secondary px-3 py-2 text-xs sm:text-sm font-bold text-secondary-foreground">
             <Sparkles className="h-4 w-4 text-accent" /> {totalPoints} Poin · {level(totalPoints)}
           </div>
         </div>
@@ -144,7 +144,7 @@ function Index() {
             <div className="intro-shade absolute inset-0 -z-10" />
             <div className="max-w-lg">
               <p className="mb-3 text-sm font-bold text-primary">Om Swastiastu 🙏 · Bersama jaga Bali</p>
-              <h1 className="text-5xl font-extrabold leading-tight text-foreground md:text-6xl">
+              <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight text-foreground md:text-6xl">
                 Pilah Cerdas Bali
               </h1>
               <p className="mt-4 text-2xl font-bold leading-snug">Bali bersih dimulai dari satu pilahanmu.</p>
@@ -197,7 +197,7 @@ function Index() {
               )}
             </div>
 
-            <div className="rounded-[2rem] bg-card p-6 shadow-soft md:p-8">
+            <div className="min-w-0 rounded-[2rem] bg-card p-5 shadow-soft md:p-8">
               {loading && (
                 <div className="flex h-full flex-col items-center justify-center gap-3 py-16 text-muted-foreground">
                   <Loader2 className="h-8 w-8 animate-spin text-primary" /> AI sedang mengenali sampahmu…
@@ -221,7 +221,7 @@ function Index() {
                   <span className={`inline-block rounded-full px-4 py-1 text-sm font-bold ${CAT[result.category].cls}`}>
                     {CAT[result.category].label} · Tong {result.binColor}
                   </span>
-                  <h2 className="mt-3 text-3xl font-extrabold">{result.itemName}</h2>
+                  <h2 className="mt-3 break-words text-2xl font-extrabold sm:text-3xl">{result.itemName}</h2>
                   <p className="text-muted-foreground">{result.material}</p>
 
                   <div className="mt-5 rounded-2xl bg-muted p-4">
@@ -237,7 +237,7 @@ function Index() {
                     )}
                   </div>
 
-                  <div className="mt-5 grid grid-cols-3 gap-3 text-sm">
+                  <div className="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-3">
                     <Stat icon={<Clock className="h-4 w-4" />} label="Terurai" value={result.decomposeTime} />
                     <Stat icon={<Coins className="h-4 w-4" />} label="Bank sampah" value={result.bankSampahValue} />
                     <Stat icon={<Sparkles className="h-4 w-4" />} label="Poin" value={`+${result.ecoPoints}`} />
@@ -276,7 +276,7 @@ function Index() {
                 <div key={h.at} className="flex items-center justify-between rounded-2xl bg-card p-4 shadow-soft">
                   <div className="flex items-center gap-3">
                     <span className={`h-3 w-3 rounded-full ${CAT[h.category].cls}`} />
-                    <span className="font-medium">{h.name}</span>
+                    <span className="truncate font-medium">{h.name}</span>
                   </div>
                   <span className="text-sm font-bold text-primary">+{h.points}</span>
                 </div>
